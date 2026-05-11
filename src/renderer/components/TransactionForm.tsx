@@ -76,8 +76,8 @@ export default function TransactionForm({ onSubmit, onClose, projects, initialPr
             <label className="form-label">幣別</label>
             <select className="form-select" value={currency} onChange={e => setCurrency(e.target.value as Currency)}>
               {(isIncomeOnly
-                ? (['TWD'] as Currency[])
-                : (['TWD', 'JPY_CASH', 'JPY_CARD'] as Currency[])
+                ? (['TWD', 'TWD_CARD'] as Currency[])
+                : (['TWD', 'TWD_CARD', 'JPY_CASH', 'JPY_CARD'] as Currency[])
               ).map(c => <option key={c} value={c}>{CURRENCY_LABELS[c]}</option>)}
             </select>
           </div>
@@ -86,6 +86,7 @@ export default function TransactionForm({ onSubmit, onClose, projects, initialPr
           <div className="form-group">
             <label className="form-label">
               {isJpyCard ? '實際花費（日幣 ¥）' : currency === 'JPY_CASH' ? '金額（日幣 ¥）' : '金額（台幣 NT$）'}
+              {currency === 'TWD_CARD' && <span style={{ color: 'var(--gray-400)', fontSize: 11, marginLeft: 4 }}>對帳單金額</span>}
             </label>
             <input className="form-input" type="number" min="0" step="1"
               placeholder="0" value={amountPrimary}

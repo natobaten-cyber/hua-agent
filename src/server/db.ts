@@ -20,7 +20,7 @@ export async function initDb() {
       id SERIAL PRIMARY KEY,
       date DATE NOT NULL,
       type TEXT NOT NULL CHECK(type IN ('income','expense')),
-      currency TEXT NOT NULL CHECK(currency IN ('TWD','JPY_CASH','JPY_CARD')),
+      currency TEXT NOT NULL CHECK(currency IN ('TWD','TWD_CARD','JPY_CASH','JPY_CARD')),
       amount_primary NUMERIC NOT NULL,
       amount_secondary NUMERIC,
       category TEXT NOT NULL,

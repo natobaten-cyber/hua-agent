@@ -13,9 +13,10 @@ const CATEGORY_ICONS: Record<string, string> = {
 }
 
 const CURRENCY_BADGE: Record<Currency, { label: string; cls: string }> = {
-  TWD: { label: 'TWD', cls: 'badge-twd' },
+  TWD: { label: 'NT$ 現金', cls: 'badge-twd' },
+  TWD_CARD: { label: 'NT$ 信用卡', cls: 'badge-twd' },
   JPY_CASH: { label: '¥ 現金', cls: 'badge-jpy-cash' },
-  JPY_CARD: { label: '¥ 卡', cls: 'badge-jpy-card' },
+  JPY_CARD: { label: '¥ 信用卡', cls: 'badge-jpy-card' },
 }
 
 function formatAmount(amount: number, currency: Currency) {

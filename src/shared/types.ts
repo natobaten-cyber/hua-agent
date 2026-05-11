@@ -1,4 +1,4 @@
-export type Currency = 'TWD' | 'JPY_CASH' | 'JPY_CARD'
+export type Currency = 'TWD' | 'TWD_CARD' | 'JPY_CASH' | 'JPY_CARD'
 export type TransactionType = 'income' | 'expense'
 
 export interface Transaction {
@@ -63,7 +63,8 @@ export const PROJECT_CATEGORIES_EXPENSE = [
 ]
 
 export const CURRENCY_LABELS: Record<Currency, string> = {
-  TWD: '台幣 (TWD)',
-  JPY_CASH: '日幣現金 (JPY)',
-  JPY_CARD: '日幣信用卡',
+  TWD: '台幣現金／轉帳',
+  TWD_CARD: '台灣信用卡（刷台幣）',
+  JPY_CASH: '日幣現金',
+  JPY_CARD: '台灣信用卡（刷日幣）',
 }
