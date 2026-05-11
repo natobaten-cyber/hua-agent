@@ -22,6 +22,7 @@ export default function TransactionForm({ onSubmit, onClose, projects, initialPr
   const [category, setCategory] = useState('')
   const [note, setNote] = useState('')
   const [projectId, setProjectId] = useState<number | undefined>(initialProjectId)
+  const [errors, setErrors] = useState<{ amount?: string; category?: string }>({})
 
   useEffect(() => {
     if (mode === 'project' && initialProjectId) setProjectId(initialProjectId)
@@ -35,7 +36,11 @@ export default function TransactionForm({ onSubmit, onClose, projects, initialPr
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!category || !amountPrimary) return
+    const newErrors: { amount?: string; category?: string } = {}
+    if (!amountPrimary) newErrors.amount = '請輸入金額'
+    if (!category) newErrors.category = '請選擇分類'
+    if (Object.keys(newErrors).length > 0) { setErrors(newErrors); return }
+    setErrors({})
     onSubmit({
       date, type, currency,
       amountPrimary: parseFloat(amountPrimary),
@@ -90,7 +95,9 @@ export default function TransactionForm({ onSubmit, onClose, projects, initialPr
             </label>
             <input className="form-input" type="number" min="0" step="1"
               placeholder="0" value={amountPrimary}
-              onChange={e => setAmountPrimary(e.target.value)} required />
+              style={errors.amount ? { borderColor: 'var(--red)' } : {}}
+              onChange={e => { setAmountPrimary(e.target.value); setErrors(ev => ({ ...ev, amount: undefined })) }} />
+            {errors.amount && <div style={{ color: 'var(--red)', fontSize: 12, marginTop: 4 }}>{errors.amount}</div>}
           </div>
 
           {/* 信用卡台幣欄位 */}
@@ -112,7 +119,9 @@ export default function TransactionForm({ onSubmit, onClose, projects, initialPr
             {/* 分類 */}
             <div className="form-group">
               <label className="form-label">分類</label>
-              <select className="form-select" value={category} onChange={e => setCategory(e.target.value)} required>
+              <select className="form-select" value={category}
+                style={errors.category ? { borderColor: 'var(--red)' } : {}}
+                onChange={e => { setCategory(e.target.value); setErrors(ev => ({ ...ev, category: undefined })) }}>
                 <option value="">選擇分類</option>
                 {mode === 'personal' ? (
                   type === 'expense' ? (
@@ -138,6 +147,7 @@ export default function TransactionForm({ onSubmit, onClose, projects, initialPr
                   categories.map(c => <option key={c} value={c}>{c}</option>)
                 )}
               </select>
+              {errors.category && <div style={{ color: 'var(--red)', fontSize: 12, marginTop: 4 }}>{errors.category}</div>}
             </div>
 
             {/* 日期 */}
