@@ -10,6 +10,7 @@
     "build": "tsc -p tsconfig.server.json && npx vite build",
     "start": "node dist/server/index.js"
   },
+  "engines": { "node": ">=22" },
   "keywords": [],
   "author": "",
   "license": "ISC",
