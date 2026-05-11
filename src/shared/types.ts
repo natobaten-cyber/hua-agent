@@ -43,11 +43,18 @@ export interface Stats {
 }
 
 export const PERSONAL_CATEGORIES_EXPENSE = [
-  '餐飲', '交通', '購物', '娛樂', '住宿', '醫療', '日用品', '旅遊', '其他'
+  '餐飲', '交通', '購物', '娛樂', '住宿', '醫療', '日用品', '旅遊',
+  '股票買入', '房貸', '基金', '其他投資',
+  '其他'
 ]
 export const PERSONAL_CATEGORIES_INCOME = [
-  '薪資', '獎金', '投資', '兼職', '其他'
+  '薪資', '獎金', '兼職',
+  '股票獲利', '股息', '基金獲利',
+  '其他'
 ]
+
+export const INVESTMENT_EXPENSE = ['股票買入', '房貸', '基金', '其他投資']
+export const INVESTMENT_INCOME = ['股票獲利', '股息', '基金獲利']
 export const PROJECT_CATEGORIES_INCOME = [
   '銷售收入', '外送收入', '活動收入', '其他收入'
 ]

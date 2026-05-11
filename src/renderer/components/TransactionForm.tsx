@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { TransactionInput, Currency, PERSONAL_CATEGORIES_EXPENSE, PERSONAL_CATEGORIES_INCOME, PROJECT_CATEGORIES_INCOME, PROJECT_CATEGORIES_EXPENSE, CURRENCY_LABELS } from '../../shared/types'
+import { TransactionInput, Currency, PERSONAL_CATEGORIES_EXPENSE, PERSONAL_CATEGORIES_INCOME, PROJECT_CATEGORIES_INCOME, PROJECT_CATEGORIES_EXPENSE, INVESTMENT_EXPENSE, INVESTMENT_INCOME, CURRENCY_LABELS } from '../../shared/types'
 import { Project } from '../../shared/types'
 
 interface Props {
@@ -113,7 +113,29 @@ export default function TransactionForm({ onSubmit, onClose, projects, initialPr
               <label className="form-label">分類</label>
               <select className="form-select" value={category} onChange={e => setCategory(e.target.value)} required>
                 <option value="">選擇分類</option>
-                {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                {mode === 'personal' ? (
+                  type === 'expense' ? (
+                    <>
+                      <optgroup label="日常支出">
+                        {PERSONAL_CATEGORIES_EXPENSE.filter(c => !INVESTMENT_EXPENSE.includes(c)).map(c => <option key={c} value={c}>{c}</option>)}
+                      </optgroup>
+                      <optgroup label="📈 投資">
+                        {INVESTMENT_EXPENSE.map(c => <option key={c} value={c}>{c}</option>)}
+                      </optgroup>
+                    </>
+                  ) : (
+                    <>
+                      <optgroup label="收入">
+                        {PERSONAL_CATEGORIES_INCOME.filter(c => !INVESTMENT_INCOME.includes(c)).map(c => <option key={c} value={c}>{c}</option>)}
+                      </optgroup>
+                      <optgroup label="📈 投資收益">
+                        {INVESTMENT_INCOME.map(c => <option key={c} value={c}>{c}</option>)}
+                      </optgroup>
+                    </>
+                  )
+                ) : (
+                  categories.map(c => <option key={c} value={c}>{c}</option>)
+                )}
               </select>
             </div>
 
